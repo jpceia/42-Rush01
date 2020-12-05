@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:01:19 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/05 17:44:33 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/05 17:58:04 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 
 int	***combinations;
+
+combinations = (int ***)malloc(sizeof(*combinations) * 4);
 
 // 2
 combinations[0] = {
@@ -24,7 +26,7 @@ combinations[0] = {
 	{4, 3, 1, 2},
 	{4, 3, 2, 1},
 	0
-}
+};
 
 combinations[1] = {
 	{1, 4, 2, 3},
@@ -41,7 +43,7 @@ combinations[1] = {
 	{3, 2, 1, 4},
 	{3, 1, 2, 4},
 	0
-}
+};
 
 combinations[2] = {
 	{1, 3, 4, 2},
@@ -51,14 +53,14 @@ combinations[2] = {
 	{2, 3, 1, 4},
 	{2, 1, 3, 4},
 	0
-}
+};
 
 combinations[3] = {
 	{1, 2, 3, 4},
 	0
-}
+};
 
-voif	ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
@@ -66,7 +68,7 @@ voif	ft_putchar(char c)
 int is_valid_line(int *row, int n)
 {
 	int	i;
-	int	*comb_n;
+	int	**comb_n;
 
 	comb_n = combinations[n - 1];
 	while (*comb_n)
@@ -92,7 +94,10 @@ int	is_valid(int **grid, int **input)
 	{
 		j = 0;
 		while (j < 4)
-			row[j] = grid[i][3 - j++];
+		{
+			row[j] = grid[i][3 - j];
+			j++;
+		}	
 		if (!is_valid_line(row, input[1][i]))
 			return (0);
 		i++;
@@ -102,7 +107,9 @@ int	is_valid(int **grid, int **input)
 	{
 		j = 0;
 		while (j < 4)
-			row[j] = grid[j++][i];
+		{	row[j] = grid[j][i];
+			j++;
+		}
 		if (!is_valid_line(row, input[2][i]))
 			return (0);
 		i++;
@@ -112,7 +119,9 @@ int	is_valid(int **grid, int **input)
 	{
 		j = 0;
 		while (j < 4)
-			row[j] = grid[3 - j++][i];
+		{	row[j] = grid[3 - j][i];
+			j++;
+		}
 		if (!is_valid_line(row, input[3][i]))
 			return (0);
 		i++;
@@ -158,7 +167,7 @@ void	get_input(int **input, char *s)
 int	main(int argc, char** argv)
 {
 
-	iint	input[4][4];
+	int	input[4][4];
 	int grid[4][4];
 
 	get_input(input, argv[1]);
