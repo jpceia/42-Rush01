@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 07:07:31 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 07:21:42 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 07:56:18 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@ int		ft_strlen(char *str)
 	return (index);
 }
 
-void	ft_print_grid(int *grid)
+void	ft_print_grid(int *grid, int size)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while (i < 4)
+	while (i < size)
 	{
-		ft_putchar('0' + grid[i * 4]);
-		ft_putchar(' ');
-		ft_putchar('0' + grid[i * 4 + 1]);
-		ft_putchar(' ');
-		ft_putchar('0' + grid[i * 4 + 2]);
-		ft_putchar(' ');
-		ft_putchar('0' + grid[i * 4 + 3]);
+		j = 0;
+		while (j < size - 1)
+		{
+			ft_putchar('0' + grid[i * size + j]);
+			ft_putchar(' ');
+			j++;
+		}
+		ft_putchar('0' + grid[i * size + size - 1]);
 		ft_putchar('\n');
 		i++;
 	}
