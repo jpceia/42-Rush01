@@ -6,13 +6,17 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 06:50:44 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 08:20:56 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 21:28:48 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 #include "ft_algo.h"
 #include <stdlib.h>
+
+#ifndef SIZE
+# define SIZE 4
+#endif
 
 int		parse_args(int *conditions, char *str, int size)
 {
@@ -40,7 +44,7 @@ int		main(int argc, char **argv)
 	int *grid;
 	int *conditions;
 
-	size = 4;
+	size = SIZE;
 	grid = malloc(sizeof(*grid) * size * size);
 	conditions = malloc(sizeof(*conditions) * 4 * size);
 	success = 1;
