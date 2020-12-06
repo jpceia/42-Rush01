@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 06:50:44 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 08:10:51 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 08:20:56 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		main(int argc, char **argv)
 	grid = malloc(sizeof(*grid) * size * size);
 	conditions = malloc(sizeof(*conditions) * size * size);
 	success = 1;
-	if (argc > 1)
+	if (argc == 2)
 		success &= parse_args(conditions, argv[1], size);
 	else
 		success = 0;
