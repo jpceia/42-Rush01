@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 07:29:56 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 07:29:59 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 07:39:01 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int		is_valid_grid(int *grid, int n)
 int		get_coordinates(int x, int y, int direction)
 {
 	if (direction == 1)
-		return (x + 4 * (3 - y));
+		return (x + 4 * (4 - 1 - y));
 	if (direction == 2)
 		return (y + 4 * x);
 	if (direction == 3)
-		return (3 - y + 4 * x);
+		return (4 - 1  - y + 4 * x);
 	return (x + 4 * y);
 }
 
@@ -87,8 +87,8 @@ int		conditions_respected(int *grid, int *conditions)
 {
 	return (side_conditions_respected(grid, conditions, 0)
 		&& side_conditions_respected(grid, conditions + 4, 1)
-		&& side_conditions_respected(grid, conditions + 8, 2)
-		&& side_conditions_respected(grid, conditions + 12, 3));
+		&& side_conditions_respected(grid, conditions + 4 * 2, 2)
+		&& side_conditions_respected(grid, conditions + 4 * 3, 3));
 }
 
 int		add_item(int *conditions, int *grid, int n)
@@ -97,7 +97,7 @@ int		add_item(int *conditions, int *grid, int n)
 
 	if (!is_valid_grid(grid, n - 1))
 		return (0);
-	if (n >= 16)
+	if (n >= 4 * 4)
 	{
 		if (conditions_respected(grid, conditions))
 		{
