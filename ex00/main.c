@@ -22,7 +22,7 @@ int		parse_args(int *conditions, char *str, int size)
 	if (ft_strlen(str) != 2 * 4 * size - 1)
 		return (0);
 	index = 0;
-	while (index < size * size)
+	while (index < 4 * size)
 	{
 		i = str[2 * index] - '0';
 		if (i < 1 || i > size)
