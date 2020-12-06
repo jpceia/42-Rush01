@@ -6,6 +6,12 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
+void 	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
 void	ft_print_grid(int *grid)
 {
 	int i;
@@ -32,46 +38,115 @@ int is_valid_grid(int *grid, int n)
 	int y;
 	int val;
 
-	x = n / 4;
-	y = n % 4;
+	x = n % 4;
+	y = n / 4;
 	val = grid[n];
 	i = 0;
 	while (i < x)
-		if (val == grid[y + 4 * i++])
+		if (val == grid[i++ + 4 * y])
 			return (0);
 	i = 0;
 	while (i < y)
-		if (val == grid[4 * x + i++])
+		if (val == grid[x + 4 * i++])
 			return (0);
 	return (1);
 }
 
-int add_item(int *grid, int n)
+int get_coordinates(int x, int y, int direction)
+{
+	if (direction == 1)
+		return (x + 4 * (3 - y));
+	if (direction == 2)
+		return (y + 4 * x);
+	if (direction == 3)
+		return (3 - y + 4 * x);
+	return (x + 4 * y);
+}
+
+int side_conditions_are_respected(int* grid, int* one_side_conditions, int direction)
 {
 	int i;
-	int sum;
+	int j;
+	int max_seen;
+	int count_seen;
+	int val;
+
+	i = 0;
+	while (i < 4)
+	{
+		count_seen = 0;
+		max_seen = 0;
+		j = 0;
+		while (j < 4)
+		{
+			val = grid[get_coordinates(i, j, direction)];
+			if (val > max_seen)
+			{
+				count_seen++;
+				max_seen = val;
+			}
+			j++;
+		}
+		if (count_seen != one_side_conditions[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int conditions_are_respected(int *grid, int* conditions)
+{
+	return (side_conditions_are_respected(grid, conditions, 0)
+		&& side_conditions_are_respected(grid, conditions + 4, 1)
+		&& side_conditions_are_respected(grid, conditions + 8, 2)
+		&& side_conditions_are_respected(grid, conditions + 12, 3)
+	);
+}
+
+int add_item(int *conditions, int *grid, int n)
+{
+	int i;
 	if (!is_valid_grid(grid, n - 1))
 		return (0);
 	if (n >= 16)
 	{
-		ft_print_grid(grid);
-		ft_putchar('\n');
-		return (1);
+		if (conditions_are_respected(grid, conditions))
+		{
+			ft_print_grid(grid);
+			return (1);
+		}
+		return (0);
 	}
-	sum = 0;
 	i = 0;
 	while (i < 4)
 	{
 		grid[n] = i + 1;
-		sum += add_item(grid, n + 1);
+		if(add_item(conditions, grid, n + 1))
+			return (1);
 		i++;
 	}
-	return (sum);
+	return (0);
 }
 
-int main(void)
+int	parse_args(int* conditions, char* str)
 {
+	return (1);
+}
+
+int main(int argc, char **argv)
+{
+	int success;
 	int grid[16];
-	printf("Possible combinations: %d\n", add_item(grid, 0));
+	int conditions[16] = {4, 3, 2, 1,    1, 2, 2, 2,    4, 3, 2, 1,     1, 2, 2, 2 };
+
+	success = 1;
+	if (argc > 1)
+		success &= parse_args(conditions, argv[1]);
+	else
+		success = 0;
+	if (success)
+		success &= add_item(conditions, grid, 0);
+	if (!success)
+		ft_putstr("Error\n");
 	return (0);
 }
