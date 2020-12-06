@@ -42,7 +42,7 @@ int		main(int argc, char **argv)
 
 	size = 4;
 	grid = malloc(sizeof(*grid) * size * size);
-	conditions = malloc(sizeof(*conditions) * size * size);
+	conditions = malloc(sizeof(*conditions) * 4 * size);
 	success = 1;
 	if (argc == 2)
 		success &= parse_args(conditions, argv[1], size);
