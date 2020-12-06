@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 07:29:56 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 07:39:01 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 07:44:02 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		get_coordinates(int x, int y, int direction)
 	if (direction == 2)
 		return (y + 4 * x);
 	if (direction == 3)
-		return (4 - 1  - y + 4 * x);
+		return (4 - 1 - y + 4 * x);
 	return (x + 4 * y);
 }
 
