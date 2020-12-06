@@ -145,7 +145,7 @@ int add_item(int *conditions, int *grid, int n)
 	return (0);
 }
 
-int	parse_args(int* conditions, char* str)
+int	ft_parse_args(int* conditions, char* str)
 {
 	int index;
 	int i;
@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 
 	success = 1;
 	if (argc > 1)
-		success &= parse_args(conditions, argv[1]);
+		success &= ft_parse_args(conditions, argv[1]);
 	else
 		success = 0;
 	if (success)
