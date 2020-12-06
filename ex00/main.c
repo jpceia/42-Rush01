@@ -6,7 +6,7 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 06:50:44 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 07:55:52 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 08:10:51 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		main(int argc, char **argv)
 	else
 		success = 0;
 	if (success)
-		success = add_item(conditions, grid, 0, size);
+		success = add_item(size, grid, conditions, 0);
 	if (!success)
 		ft_putstr("Error\n");
 	free(grid);

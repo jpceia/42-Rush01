@@ -6,14 +6,14 @@
 /*   By: jceia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 07:29:56 by jceia             #+#    #+#             */
-/*   Updated: 2020/12/06 07:56:53 by jceia            ###   ########.fr       */
+/*   Updated: 2020/12/06 08:09:57 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_algo.h"
 #include "ft_utils.h"
 
-int		is_valid_grid(int *grid, int n, int size)
+int		is_valid_grid(int size, int *grid, int n)
 {
 	int i;
 	int x;
@@ -42,7 +42,7 @@ int		is_valid_grid(int *grid, int n, int size)
 ** 	3. 90 deg right rotation
 */
 
-int		get_coordinates(int x, int y, int direction, int size)
+int		get_coordinates(int size, int x, int y, int direction)
 {
 	if (direction == 1)
 		return (x + size * (size - 1 - y));
@@ -54,7 +54,7 @@ int		get_coordinates(int x, int y, int direction, int size)
 }
 
 int		side_conditions_respected(
-		int *grid, int *side_conditions, int direction, int size)
+		int size, int *grid, int *side_conditions, int direction)
 {
 	int i;
 	int j;
@@ -70,7 +70,7 @@ int		side_conditions_respected(
 		j = 0;
 		while (j < size)
 		{
-			val = grid[get_coordinates(i, j++, direction, size)];
+			val = grid[get_coordinates(size, i, j++, direction)];
 			if (val > max_seen)
 			{
 				count_seen++;
@@ -83,23 +83,23 @@ int		side_conditions_respected(
 	return (1);
 }
 
-int		conditions_respected(int *grid, int *conditions, int size)
+int		conditions_respected(int size, int *grid, int *conditions)
 {
-	return (side_conditions_respected(grid, conditions, 0, size)
-		&& side_conditions_respected(grid, conditions + 1 * size, 1, size)
-		&& side_conditions_respected(grid, conditions + 2 * size, 2, size)
-		&& side_conditions_respected(grid, conditions + 3 * size, 3, size));
+	return (side_conditions_respected(size, grid, conditions, 0)
+		&& side_conditions_respected(size, grid, conditions + 1 * size, 1)
+		&& side_conditions_respected(size, grid, conditions + 2 * size, 2)
+		&& side_conditions_respected(size, grid, conditions + 3 * size, 3));
 }
 
-int		add_item(int *conditions, int *grid, int n, int size)
+int		add_item(int size, int *grid, int *conditions, int n)
 {
 	int i;
 
-	if (!is_valid_grid(grid, n - 1, size))
+	if (!is_valid_grid(size, grid, n - 1))
 		return (0);
 	if (n >= size * size)
 	{
-		if (conditions_respected(grid, conditions, size))
+		if (conditions_respected(size, grid, conditions))
 		{
 			ft_print_grid(grid, size);
 			return (1);
@@ -110,7 +110,7 @@ int		add_item(int *conditions, int *grid, int n, int size)
 	while (i < size)
 	{
 		grid[n] = i + 1;
-		if (add_item(conditions, grid, n + 1, size))
+		if (add_item(size, grid, conditions, n + 1))
 			return (1);
 		i++;
 	}
