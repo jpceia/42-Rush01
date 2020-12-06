@@ -12,6 +12,16 @@ void 	ft_putstr(char *str)
 		write(1, str++, 1);
 }
 
+int		ft_strlen(char *str)
+{
+	int index;
+
+	index = 0;
+	while(str[index])
+		index++;
+	return (index);
+}
+
 void	ft_print_grid(int *grid)
 {
 	int i;
@@ -52,6 +62,13 @@ int is_valid_grid(int *grid, int n)
 	return (1);
 }
 
+/*
+* directions:
+* 	0. (default value) standard matrix position (row x, column y)
+* 	1. vertical reflection
+* 	2. 90 deg right rotation + horizontal reflection
+* 	3. 90 deg right rotation
+*/
 int get_coordinates(int x, int y, int direction)
 {
 	if (direction == 1)
@@ -130,6 +147,21 @@ int add_item(int *conditions, int *grid, int n)
 
 int	parse_args(int* conditions, char* str)
 {
+	int index;
+	int i;
+
+	if (ft_strlen(str) != 16 * 2 - 1)
+		return (0);
+	
+	index = 0;
+	while(index < 16)
+	{
+		i = str[2 * index] - '0';
+		if (i < 1 || i > 4)
+			return (0);
+		conditions[index] = i;
+		index++;
+	}
 	return (1);
 }
 
@@ -137,7 +169,7 @@ int main(int argc, char **argv)
 {
 	int success;
 	int grid[16];
-	int conditions[16] = {4, 3, 2, 1,    1, 2, 2, 2,    4, 3, 2, 1,     1, 2, 2, 2 };
+	int conditions[16];
 
 	success = 1;
 	if (argc > 1)
@@ -145,7 +177,7 @@ int main(int argc, char **argv)
 	else
 		success = 0;
 	if (success)
-		success &= add_item(conditions, grid, 0);
+		success = add_item(conditions, grid, 0);
 	if (!success)
 		ft_putstr("Error\n");
 	return (0);
