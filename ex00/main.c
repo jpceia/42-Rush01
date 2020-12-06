@@ -19,7 +19,7 @@ int		parse_args(int *conditions, char *str, int size)
 	int index;
 	int i;
 
-	if (ft_strlen(str) != size * size * 2 - 1)
+	if (ft_strlen(str) != 2 * 4 * size - 1)
 		return (0);
 	index = 0;
 	while (index < size * size)
@@ -42,7 +42,7 @@ int		main(int argc, char **argv)
 
 	size = 4;
 	grid = malloc(sizeof(*grid) * size * size);
-	conditions = malloc(sizeof(*conditions) * size * size);
+	conditions = malloc(sizeof(*conditions) * 4 * size);
 	success = 1;
 	if (argc == 2)
 		success &= parse_args(conditions, argv[1], size);
